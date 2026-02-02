@@ -1,11 +1,12 @@
-FROM node:24-alpine3.22 AS build
+FROM node:24-alpine3.22
 WORKDIR /app
-COPY package* .
+COPY services/api-gateway/package* .
 RUN npm install
-COPY . .
-ENV PORT=3000
-ENV ENTRIES_SERVICE_ADDR="assa"
-ENV OPENAI_API_KEY="assa"
-ENV OPENAI_MODEL="assa"
+COPY services/api-gateway/. .
+COPY protos ./protos
+ENV PORT=5000
+#ENV ENTRIES_SERVICE_ADDR="assa"
+#ENV OPENAI_API_KEY="assa"
+#ENV OPENAI_MODEL="assa"
 EXPOSE 5000
 CMD ["node", "index.js"]
